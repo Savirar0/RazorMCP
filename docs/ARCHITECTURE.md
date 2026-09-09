@@ -191,6 +191,7 @@ Exact install ranges are maintained in [`../requirements.txt`](../requirements.t
 - **Synchronous SDK calls:** Razorpay and model calls run in the request workflow. For production scale, isolate them behind asynchronous clients or jobs.
 - **Permissive CORS:** the current `allow_origins=["*"]` is convenient for a demo but should be limited to trusted UI origins in deployment.
 - **Test payments only:** order creation does not itself capture payment. Add signed webhook handling and fulfillment state before treating orders as paid.
+- **Public demo mode:** `DEMO_MODE=true` keeps a portfolio deployment safe by generating a local, deterministic quote and simulated order after the same guardrail check. It never calls Groq or Razorpay; use `false` only in a controlled environment with protected credentials.
 - **Input and output guardrails:** Pydantic checks request shape and tool output shape; the current policy validates caps, discounts, SKUs, and stock. Production should also reconcile item price/unit price and quote arithmetic, enforce positive budget values, and apply rate/spend limits per buyer identity.
 - **Audit scope:** the returned `audit_trail` is useful for inspection but is not immutable durable storage. Persist events with request IDs, access controls, and retention policy for compliance-grade auditability.
 

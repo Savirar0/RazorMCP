@@ -9,6 +9,13 @@ from app.services.catalog import catalog_service, Product
 from app.core.guardrails import guardrail_engine, GuardrailValidationResult
 from app.services.seller_agent import seller_agent_service, BuyerIntentRequest, AgenticTransactionResult
 
+
+cors_origins = (
+    ["*"]
+    if settings.CORS_ORIGINS.strip() == "*"
+    else [origin.strip() for origin in settings.CORS_ORIGINS.split(",") if origin.strip()]
+)
+
 # ------------------------------------------------------------------------------
 # 1. Initialize FastAPI Application
 # ------------------------------------------------------------------------------
@@ -23,8 +30,8 @@ app = FastAPI(
 # Enable CORS for frontend judge dashboards or browser-based AI buyers
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
-    allow_credentials=True,
+    allow_origins=cors_origins,
+    allow_credentials=False,
     allow_methods=["*"],
     allow_headers=["*"],
 )
@@ -64,6 +71,7 @@ async def health_check():
     return {
         "status": "healthy",
         "environment": settings.ENVIRONMENT,
+        "demo_mode": settings.DEMO_MODE,
         "max_discount_cap_pct": settings.MAX_DISCOUNT_PERCENTAGE,
         "max_transaction_limit_inr": settings.MAX_TRANSACTION_LIMIT_INR
     }

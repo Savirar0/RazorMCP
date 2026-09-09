@@ -1,11 +1,16 @@
 import streamlit as st
 import requests
 import json
+import os
+
+
+BACKEND_URL = os.getenv("BACKEND_URL", "http://localhost:8000").rstrip("/")
 
 st.set_page_config(page_title="Razorpay Agentic Seller Dashboard", layout="wide")
 
 st.title("🤖 Razorpay Agentic Seller — Live Transaction Inspector")
 st.caption("Track 01: Machine-to-Machine AI Seller Gateway with Pydantic Guardrails & Audit Trail")
+st.caption(f"Backend: {BACKEND_URL}")
 
 # Sidebar - Settings & Guardrail Rules
 st.sidebar.header("🛡️ Active Guardrail Config")
@@ -31,7 +36,7 @@ if trigger_buy:
         with st.spinner("Connecting to Seller Agent & Processing Guardrails..."):
             try:
                 res = requests.post(
-                    "http://localhost:8000/api/v1/agent/process-intent",
+                    f"{BACKEND_URL}/api/v1/agent/process-intent",
                     json={
                         "buyer_agent_id": buyer_id,
                         "query": prompt,
@@ -43,7 +48,11 @@ if trigger_buy:
 
                 status = data.get("status")
                 if status == "SUCCESS":
-                    st.success(f"Transaction Successful! Razorpay Order Created.")
+                    is_demo_transaction = any(step.get("step") == "DEMO_ORDER_SIMULATED" for step in data.get("audit_trail", []))
+                    if is_demo_transaction:
+                        st.success("Demo transaction completed — no live payment order was created.")
+                    else:
+                        st.success("Transaction successful — Razorpay Test Mode order created.")
                     st.metric("Razorpay Order ID", data.get("razorpay_order_id"))
                     st.metric("Total Charged", f"₹{data.get('amount_paid_inr')}")
                 elif status == "GUARDRAIL_REJECTED":

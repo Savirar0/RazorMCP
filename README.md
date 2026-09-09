@@ -32,6 +32,7 @@ flowchart LR
 ```
 
 Read the full component map, data flow, API contracts, and security notes in [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md).
+For the Railway deployment runbook, see [docs/HOSTING.md](docs/HOSTING.md).
 
 ## Quick start
 
@@ -81,6 +82,8 @@ Copy `.env.example` to `.env` and configure the following values.
 | `MAX_DISCOUNT_PERCENTAGE` | No | Merchant discount ceiling; defaults to `20.0` |
 | `MAX_TRANSACTION_LIMIT_INR` | No | Per-transaction merchant cap; defaults to `10000.0` |
 | `ENVIRONMENT` | No | Runtime label returned by `/health` |
+| `DEMO_MODE` | Recommended in public deployments | Simulates successful checked-out orders locally; no Groq or Razorpay call |
+| `CORS_ORIGINS` | Recommended in production | Comma-separated trusted dashboard URLs, or `*` for local development |
 
 > The `.gitignore` deliberately excludes `.env`, virtual environments, private keys, logs, and Streamlit secrets. If a credential has ever been committed, revoke and rotate it; adding it to `.gitignore` does not remove it from Git history.
 
