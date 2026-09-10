@@ -2,6 +2,12 @@
 
 Traditional online stores are designed for people: browse pages, compare products, add to cart, and check out. That breaks down when the buyer is an AI assistant, procurement bot, or autonomous shopping agent. These systems need a machine-readable catalog, a structured way to negotiate within a mandate, and a payment path that is safe by design.
 
+# Live Demo & Demo Mode Notice
+
+> 🚀 **Try the Live App:** [https://razormcp.streamlit.app/](https://razormcp.streamlit.app/)
+
+The public live deployment runs with **`DEMO_MODE=true`** enabled by default. So it's a mock, I really don't want exhaust my keys.
+
 # Razorpay Agentic Seller Gateway
 
 > A machine-to-machine commerce gateway where AI buyer agents discover products, receive a structured margin-aware offer, pass deterministic guardrails, and create Razorpay Test Mode orders — without a human checkout flow.
