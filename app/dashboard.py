@@ -2,11 +2,13 @@ import streamlit as st
 import requests
 import json
 import os
-
+BASE_DIR = Path(__file__).resolve().parent.parent
+FAVICON_PATH = os.path.join(BASE_DIR, "media", "image.png")
 
 BACKEND_URL = os.getenv("BACKEND_URL", "http://localhost:8000").rstrip("/")
 
-st.set_page_config(page_title="Razorpay Agentic Seller Dashboard", layout="wide")
+
+st.set_page_config(page_title="Razorpay Agentic Seller Dashboard", layout="wide", page_icon=FAVICON_PATH)
 
 st.title("🤖 Razorpay Agentic Seller — Live Transaction Inspector")
 st.caption("Track 01: Machine-to-Machine AI Seller Gateway with Pydantic Guardrails & Audit Trail")
