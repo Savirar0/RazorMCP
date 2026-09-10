@@ -2,6 +2,8 @@ import streamlit as st
 import requests
 import json
 import os
+from pathlib import Path
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 FAVICON_PATH = os.path.join(BASE_DIR, "media", "image.png")
 
