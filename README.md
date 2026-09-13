@@ -1,5 +1,7 @@
 [![M8ven Score](https://m8ven.ai/badge/mcp/savirar0-razormcp-10rd2w?v=a00c583cad1ffd0693abea203932d15c)](https://m8ven.ai/mcp/savirar0-razormcp-10rd2w)
 
+**MCP security listing:** [Indexed on the M8ven Trust Index](https://m8ven.ai/mcp/savirar0/razormcp)
+
 # Why this project exists
 
 Traditional online stores are designed for people: browse pages, compare products, add to cart, and check out. That breaks down when the buyer is an AI assistant, procurement bot, or autonomous shopping agent. These systems need a machine-readable catalog, a structured way to negotiate within a mandate, and a payment path that is safe by design.
