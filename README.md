@@ -1,4 +1,4 @@
-[![M8ven Score](https://m8ven.ai/badge/mcp/savirar0/razormcp)](https://m8ven.ai/mcp/savirar0/razormcp)
+[![M8ven Score](https://m8ven.ai/badge/mcp/savirar0-razormcp-10rd2w?v=a00c583cad1ffd0693abea203932d15c)](https://m8ven.ai/mcp/savirar0-razormcp-10rd2w)
 
 # Why this project exists
 
