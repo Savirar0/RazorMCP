@@ -3,6 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field
 from typing import List, Dict, Any, Optional
 from fastmcp import FastMCP
+from mcp.types import ToolAnnotations
 
 from app.config import settings
 from app.services.catalog import catalog_service, Product
@@ -45,13 +46,31 @@ mcp = FastMCP(
 )
 
 
-@mcp.tool(name="search_catalog", description="Search product catalog by keyword query and maximum price cap in INR.")
+@mcp.tool(
+    name="search_catalog",
+    description="Search product catalog by keyword query and maximum price cap in INR.",
+    annotations=ToolAnnotations(
+        readOnlyHint=True,
+        destructiveHint=False,
+        idempotentHint=True,
+        openWorldHint=False,
+    ),
+)
 def mcp_search_catalog(query: str, max_price: Optional[float] = None) -> List[Dict[str, Any]]:
     products = catalog_service.search_catalog(query=query, max_price=max_price)
     return [p.model_dump() for p in products]
 
 
-@mcp.tool(name="process_agentic_purchase", description="Negotiate quote, evaluate guardrails, and generate Razorpay test order in one atomic step.")
+@mcp.tool(
+    name="process_agentic_purchase",
+    description="Negotiate quote, evaluate guardrails, and generate Razorpay test order in one atomic step.",
+    annotations=ToolAnnotations(
+        readOnlyHint=False,
+        destructiveHint=True,
+        idempotentHint=False,
+        openWorldHint=True,
+    ),
+)
 def mcp_process_purchase(buyer_agent_id: str, query: str, max_budget_inr: float) -> Dict[str, Any]:
     request = BuyerIntentRequest(
         buyer_agent_id=buyer_agent_id,

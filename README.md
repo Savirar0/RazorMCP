@@ -103,6 +103,15 @@ Copy `.env.example` to `.env` and configure the following values.
 | MCP | `search_catalog(query, max_price?)` | MCP-native catalog discovery |
 | MCP | `process_agentic_purchase(buyer_agent_id, query, max_budget_inr)` | MCP-native atomic purchase workflow |
 
+### MCP tool safety metadata
+
+Both MCP tools declare all four standard MCP safety hints. `search_catalog` is
+read-only, idempotent, and local to the server's in-memory catalog.
+`process_agentic_purchase` may create a Razorpay Test Mode order, so clients
+must treat it as state-changing, non-idempotent, and capable of contacting an
+external service. MCP hosts can use these declarations to warn users before
+invocation.
+
 Example request:
 
 ```bash
@@ -124,6 +133,7 @@ python test_phase2.py      # catalog and deterministic guardrails; no external c
 python test_phase4.py      # FastAPI contract; full success needs a configured LLM/payment path
 python test_phase3.py      # seller-agent flow; may create a Razorpay Test Mode order
 python test_razorpay.py    # creates a Razorpay Test Mode order
+python test_mcp_tools.py   # MCP tool names and mandatory safety metadata
 ```
 
 The last two scripts can contact external services and create Test Mode payment orders. Use only with credentials you control.
